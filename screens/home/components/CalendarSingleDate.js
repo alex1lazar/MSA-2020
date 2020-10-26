@@ -1,16 +1,22 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 
 import Colors from "../../../constants/colors";
 
 const CalendarSingleDate = (props) => {
-  const { date, weekday } = props;
+  const { date, setCurrentDate } = props;
 
   return (
-    <View style={{ ...styles.container, ...props.style }}>
-      <Text style={styles.text}>{weekday}</Text>
-      <Text style={styles.text}>{date}</Text>
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setCurrentDate(date);
+      }}
+    >
+      <View style={{ ...styles.container, ...props.style }} onTouch>
+        <Text style={styles.text}>{date.weekday}</Text>
+        <Text style={styles.text}>{date.date}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

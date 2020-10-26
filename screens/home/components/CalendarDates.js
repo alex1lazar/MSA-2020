@@ -17,7 +17,7 @@ const createNextDates = () => {
   return dates;
 };
 
-const CalendarDates = (props) => {
+const CalendarDates = () => {
   const [currentActiveDate, setCurrentActiveDate] = useState("");
   const dates = createNextDates();
 
@@ -32,7 +32,8 @@ const CalendarDates = (props) => {
 
   const renderedDates = dates.map((date) => (
     <CalendarSingleDate
-      {...date}
+      setCurrentDate={(date) => setCurrentActiveDate(date.date)}
+      date={date}
       style={currentActiveDate === date.date && styles.activeDay}
     />
   ));
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
 
   datesContainer: {
     flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
   },
 });
 
