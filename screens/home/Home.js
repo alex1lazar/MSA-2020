@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import CalendarDates from "./components/CalendarDates";
+import Task from "./components/Task";
 
 const currentDates = [
   { weekday: "F", date: "23.10" },
@@ -17,6 +18,10 @@ const Home = () => {
       <View style={styles.calendarContainer}>
         {/* <Icon/> */}
         <CalendarDates currentDates={currentDates} />
+      </View>
+
+      <View style={styles.tasksContainer}>
+        <Task />
       </View>
     </View>
   );

@@ -30,11 +30,12 @@ const CalendarDates = () => {
     setCurrentActiveDate(day + "." + month);
   }, []);
 
-  const renderedDates = dates.map((date) => (
+  const renderedDates = dates.map((date, i) => (
     <CalendarSingleDate
       setCurrentDate={(date) => setCurrentActiveDate(date.date)}
       date={date}
       style={currentActiveDate === date.date && styles.activeDay}
+      key={i}
     />
   ));
 
