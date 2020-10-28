@@ -10,7 +10,16 @@ const currentDates = [
   { weekday: "S", date: "25.10" },
 ];
 
+const tasks = [
+  { title: "Task1", checked: false, priority: "high" },
+  { title: "Task2", checked: false, priority: "low" },
+];
+
 const Home = () => {
+  const renderedTasks = tasks.map((task) => {
+    return <Task task={task} />;
+  });
+
   return (
     <View>
       {/* TODO: Calendar functionality
@@ -20,9 +29,7 @@ const Home = () => {
         <CalendarDates currentDates={currentDates} />
       </View>
 
-      <View style={styles.tasksContainer}>
-        <Task />
-      </View>
+      <View style={styles.tasksContainer}>{renderedTasks}</View>
     </View>
   );
 };

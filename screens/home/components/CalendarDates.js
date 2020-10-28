@@ -49,8 +49,10 @@ const styles = StyleSheet.create({
 
   datesContainer: {
     flexDirection: "row",
-    width: "100%",
     justifyContent: "space-between",
+
+    width: "100%",
+    marginBottom: 24,
   },
 });
 
