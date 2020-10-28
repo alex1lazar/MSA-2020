@@ -45,6 +45,7 @@ const CalendarDates = () => {
 const styles = StyleSheet.create({
   activeDay: {
     borderColor: Colors.secondaryLight,
+    borderWidth: 1,
   },
 
   datesContainer: {

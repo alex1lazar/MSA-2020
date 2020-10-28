@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
+
+import { updateTasks } from "../../store/actions";
 
 import CalendarDates from "./components/CalendarDates";
 import Task from "./components/Task";
@@ -10,15 +13,30 @@ const currentDates = [
   { weekday: "S", date: "25.10" },
 ];
 
-const tasks = [
-  { title: "Task1", checked: false, priority: "high" },
-  { title: "Task2", checked: false, priority: "low" },
+const tasksData = [
+  {
+    name: "Task1",
+    checked: false,
+    priority: "high",
+    subtasks: [
+      { name: "Subtask 1", checked: false },
+      { name: "Subtask 2", checked: false },
+    ],
+  },
+  { name: "Task2", checked: false, priority: "low" },
 ];
 
 const Home = () => {
-  const renderedTasks = tasks.map((task) => {
-    return <Task task={task} />;
+  const tasks = useSelector((state) => state.profile.tasks);
+  const dispatch = useDispatch();
+
+  const renderedTasks = tasks.map((task, i) => {
+    return <Task task={task} key={i} />;
   });
+
+  useEffect(() => {
+    dispatch(updateTasks(tasksData));
+  }, []);
 
   return (
     <View>

@@ -23,7 +23,6 @@ const CalendarSingleDate = (props) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    borderWidth: 1,
     borderRadius: 10,
     padding: 5,
   },
