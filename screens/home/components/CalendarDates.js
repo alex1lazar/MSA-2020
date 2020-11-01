@@ -14,9 +14,9 @@ const days = [
   "Friday",
   "Saturday",
 ];
-var dates = [];
 
 const createNextDates = () => {
+  var dates = [];
   var currentDate = new Date();
 
   for (var i = 0; i <= 5; i++) {
@@ -33,7 +33,8 @@ const createNextDates = () => {
   return dates;
 };
 
-const CalendarDates = () => {
+const CalendarDates = (props) => {
+  const { setActiveDate } = props;
   const [currentActiveDate, setCurrentActiveDate] = useState("");
   const dates = createNextDates();
 
@@ -44,11 +45,15 @@ const CalendarDates = () => {
     const month = (today.getUTCMonth() + 1).toString();
 
     setCurrentActiveDate(day + "." + month);
+    setActiveDate(day + "." + month);
   }, []);
 
   const renderedDates = dates.map((date, i) => (
     <CalendarSingleDate
-      setCurrentDate={(date) => setCurrentActiveDate(date.date)}
+      setCurrentDate={(date) => {
+        setCurrentActiveDate(date.date);
+        setActiveDate(date.date);
+      }}
       date={date}
       style={currentActiveDate === date.date && styles.activeDay}
       key={i}

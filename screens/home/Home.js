@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 
 import Colors from "../../constants/colors";
@@ -12,6 +12,7 @@ import Task from "./components/Task";
 const tasksData = [
   {
     id: "1",
+    date: "1.11",
     name: "Task1",
     checked: false,
     priority: "high",
@@ -20,16 +21,19 @@ const tasksData = [
       { id: "2", name: "Subtask 2", checked: false },
     ],
   },
-  { name: "Task2", checked: false, priority: "low" },
+  { id: "2", date: "2.11", name: "Task2", checked: false, priority: "low" },
 ];
 
 const Home = () => {
   const tasks = useSelector((state) => state.profile.tasks);
+  const [activeDate, setActiveDate] = useState("");
   const dispatch = useDispatch();
 
-  const renderedTasks = tasks.map((task, i) => {
-    return <Task task={task} key={i} />;
-  });
+  const renderedTasks = tasks
+    .filter((task) => task.date === activeDate)
+    .map((task, i) => {
+      return <Task task={task} key={i} />;
+    });
 
   useEffect(() => {
     dispatch(updateTasks(tasksData));
@@ -44,7 +48,7 @@ const Home = () => {
           color={Colors.secondaryLight}
           size={44}
         />
-        <CalendarDates />
+        <CalendarDates setActiveDate={(date) => setActiveDate(date)} />
       </View>
 
       <View style={styles.tasksContainer}>{renderedTasks}</View>
