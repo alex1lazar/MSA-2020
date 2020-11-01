@@ -21,7 +21,8 @@ const tasksData = [
       { id: "2", name: "Subtask 2", checked: false },
     ],
   },
-  { id: "2", date: "2.11", name: "Task2", checked: false, priority: "low" },
+  { id: "2", date: "1.11", name: "Task2", checked: false, priority: "low" },
+  { id: "3", date: "2.11", name: "Task3", checked: false, priority: "medium" },
 ];
 
 const Home = () => {
@@ -51,7 +52,13 @@ const Home = () => {
         <CalendarDates setActiveDate={(date) => setActiveDate(date)} />
       </View>
 
-      <View style={styles.tasksContainer}>{renderedTasks}</View>
+      {renderedTasks.length ? (
+        <View style={styles.tasksContainer}>{renderedTasks}</View>
+      ) : (
+        <Text style={styles.noTasksText}>
+          You don't have any tasks assigned to this day.
+        </Text>
+      )}
     </View>
   );
 };
@@ -63,6 +70,12 @@ const styles = StyleSheet.create({
 
     marginBottom: 24,
     width: "100%",
+  },
+
+  noTasksText: {
+    color: Colors.text,
+    fontSize: 20,
+    textAlign: 'center'
   },
 });
 
