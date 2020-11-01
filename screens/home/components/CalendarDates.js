@@ -5,15 +5,31 @@ import Colors from "../../../constants/colors";
 
 import CalendarSingleDate from "./CalendarSingleDate";
 
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+var dates = [];
+
 const createNextDates = () => {
-  const currentDate = new Date();
-  var dates = [];
+  var currentDate = new Date();
+
   for (var i = 0; i <= 5; i++) {
-    const dateDay = (currentDate.getDate() + i).toString();
+    if (i > 0) currentDate.setDate(currentDate.getDate() + 1);
+
+    const dateDay = currentDate.getDate().toString();
     const dateMonth = (currentDate.getMonth() + 1).toString();
-    const date = { date: dateDay + "." + dateMonth };
+    const weekday = days[currentDate.getDay()].charAt(0);
+    const date = { date: dateDay + "." + dateMonth, weekday };
+
     dates = [...dates, date];
   }
+
   return dates;
 };
 
@@ -52,8 +68,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
 
+    maxWidth: 315,
     width: "100%",
-    marginBottom: 24,
+    paddingLeft: 15,
   },
 });
 

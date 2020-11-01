@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CheckBox, Icon } from "react-native-elements";
 
 import Colors from "../../../constants/colors";
@@ -14,7 +14,7 @@ const Task = (props) => {
         key={i}
         size={16}
         title={subtask.name}
-        checked={true}
+        checked={subtask.checked}
         uncheckedColor="#106c6f"
         checkedColor="#106c6f"
         containerStyle={styles.subtask}
@@ -41,12 +41,7 @@ const Task = (props) => {
           checkedColor="#106c6f"
         />
 
-        <Icon
-          name="timer"
-          color={Colors.secondary}
-          size={44}
-          color={Colors.secondaryLight}
-        />
+        <Icon name="timer" size={44} color={Colors.secondaryLight} />
       </View>
 
       <View>{renderedSubtasks}</View>

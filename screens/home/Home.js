@@ -1,26 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
+import { Icon } from "react-native-elements";
 
+import Colors from "../../constants/colors";
 import { updateTasks } from "../../store/actions";
 
 import CalendarDates from "./components/CalendarDates";
 import Task from "./components/Task";
 
-const currentDates = [
-  { weekday: "F", date: "23.10" },
-  { weekday: "S", date: "24.10" },
-  { weekday: "S", date: "25.10" },
-];
-
 const tasksData = [
   {
+    id: "1",
     name: "Task1",
     checked: false,
     priority: "high",
     subtasks: [
-      { name: "Subtask 1", checked: false },
-      { name: "Subtask 2", checked: false },
+      { id: "1", name: "Subtask 1", checked: false },
+      { id: "2", name: "Subtask 2", checked: false },
     ],
   },
   { name: "Task2", checked: false, priority: "low" },
@@ -40,11 +37,14 @@ const Home = () => {
 
   return (
     <View>
-      {/* TODO: Calendar functionality
-      <Calendar/> */}
       <View style={styles.calendarContainer}>
-        {/* <Icon/> */}
-        <CalendarDates currentDates={currentDates} />
+        <Icon
+          name="calendar"
+          type="evilicon"
+          color={Colors.secondaryLight}
+          size={44}
+        />
+        <CalendarDates />
       </View>
 
       <View style={styles.tasksContainer}>{renderedTasks}</View>
@@ -55,6 +55,10 @@ const Home = () => {
 const styles = StyleSheet.create({
   calendarContainer: {
     flexDirection: "row",
+    alignItems: "center",
+
+    marginBottom: 24,
+    width: "100%",
   },
 });
 
