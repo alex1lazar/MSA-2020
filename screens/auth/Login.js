@@ -1,49 +1,76 @@
 import * as React from "react";
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { color } from "react-native-reanimated";
+import { View, Text, StyleSheet, Button, Alert, TextInput } from "react-native";
+import Firebase, { db } from "../../config/Firebase";
 
-const Loginpage = () => {
+const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // async function handleLogin() {
+  //   try {
+  //     const response = await Firebase.auth().signInWithEmailAndPassword(
+  //       email,
+  //       password
+  //     );
+
+  //     try {
+  //       const user = await db.collection("users").doc(response.user.uid).get();
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
+  const handleLogin = () => {
+    Firebase.auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => navigation.navigate("Home"))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.loginContainer}>
-        <Text style={styles.titleText}>Log into your X account</Text>
+        <Text style={styles.titleText}>Log into your account</Text>
         <Text style={styles.subtitleText}>Email</Text>
-        <View style={styles.inputText}>
+        <View>
           <TextInput
+            style={styles.inputText}
             placeholder="e.g. x@mail.com"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(text) => setEmail(email)}
+            onChangeText={(email) => setEmail({ email })}
           />
         </View>
 
         <Text style={styles.subtitleText}>Password</Text>
-        <View style={styles.inputText}>
+        <View>
           <TextInput
+            style={styles.inputText}
             secureTextEntry
             placeholder="more than 7 characters"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(text) => setPassword(password)}
+            onChangeText={(password) => setPassword({ password })}
           />
         </View>
 
         <View style={styles.button}>
+          <Button onPress={() => handleLogin()} title="LOGIN" color="#A53F2B" />
+        </View>
+        <View style={styles.secondaryBttn}>
           <Button
-            onPress={() => Alert.alert("nice")}
-            title="LOGIN"
-            color="#A53F2B"
-          />
+            title="Signup"
+            onPress={() => navigation.navigate("Signup")}
+          ></Button>
         </View>
       </View>
     </View>
   );
 };
 
-export default Loginpage;
+export default LoginPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -82,6 +109,14 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingTop: 24,
-    // borderRadius: 24,
+  },
+  secondaryBttn: {
+    marginTop: 24,
+    backgroundColor: "#020D0D",
   },
 });
+
+//Firebase.auth()
+//   .signInWithEmailAndPassword(email, password)
+//   .then(() => props.navigation.navigate("Home"))
+//   .catch((error) => console.log(error));
