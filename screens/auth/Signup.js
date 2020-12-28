@@ -1,13 +1,34 @@
 import * as React from "react";
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { color } from "react-native-reanimated";
+import { View, Text, StyleSheet, Button, TextInput, Alert } from "react-native";
+import Firebase, { db } from "../../config/Firebase";
 
-const Signuppage = () => {
+const SignupPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  async function handleSignup() {
+    try {
+      const response = await Firebase.auth().createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(response);
+      if (response.user.uid) {
+        const user = {
+          uid: response.user.uid,
+          fullName: fullName,
+          email: email,
+        };
+
+        db.collection("users").doc(response.user.uid).set(user);
+        navigation.navigate("Home");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -15,46 +36,56 @@ const Signuppage = () => {
         <Text style={styles.titleText}>Sign up to be more productive</Text>
 
         <Text style={styles.subtitleText}>Full Name</Text>
-        <View style={styles.inputText}>
+        <View>
           <TextInput
+            style={styles.inputText}
             placeholder="e.g. John Doe"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(text) => setName(name)}
+            onChangeText={(fullName) => setFullName(fullName)}
           />
         </View>
 
         <Text style={styles.subtitleText}>Email</Text>
-        <View style={styles.inputText}>
+        <View>
           <TextInput
+            style={styles.inputText}
             placeholder="e.g. x@mail.com"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(text) => setEmail(email)}
+            onChangeText={(email) => setEmail(email)}
+            defaultValue={email}
           />
         </View>
 
         <Text style={styles.subtitleText}>Password</Text>
-        <View style={styles.inputText}>
+        <View>
           <TextInput
+            style={styles.inputText}
             secureTextEntry
             placeholder="more than 7 characters"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(text) => setPassword(password)}
+            onChangeText={(password) => setPassword(password)}
           />
         </View>
 
         <View style={styles.button}>
           <Button
-            onPress={() => Alert.alert("nice")}
+            onPress={() => handleSignup()}
             title="SIGN UP"
             color="#A53F2B"
           />
+        </View>
+        <View style={styles.secondaryBttn}>
+          <Button
+            title="Login"
+            onPress={() => navigation.navigate("Login")}
+          ></Button>
         </View>
       </View>
     </View>
   );
 };
 
-export default Signuppage;
+export default SignupPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +93,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
   },
+
   signupContainer: {
     color: "#fff",
     flex: 1,
@@ -80,7 +112,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 16,
     fontSize: 16,
-    fontWeight: "medium",
+    fontWeight: "600",
     color: "#fff",
     opacity: 87,
   },
@@ -95,4 +127,19 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     // borderRadius: 24,
   },
+  secondaryBttn: {
+    backgroundColor: "#fff",
+    color: "transparent",
+  },
 });
+// Firebase.auth()
+//   .createUserWithEmailAndPassword(email, password)
+//   .then(() => {
+//
+
+//     db.collection("users").doc().set({
+//       fullName: fullName,
+//       email: email,
+//     });
+//   })
+//   .catch((error) => console.log(error));
