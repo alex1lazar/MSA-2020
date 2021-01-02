@@ -1,14 +1,22 @@
 import firebase from "firebase";
 import "firebase/firestore";
 
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  MESSAGE_SENDER_ID,
+  APP_ID,
+  STORAGE_BUCKET,
+} from "@env";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAqs914JyN4MWxxCA9UCZolwYvQLlLpsEk",
-  authDomain: "rn-msaapp2020.firebaseapp.com",
-  projectId: "rn-msaapp2020",
-  storageBucket: "rn-msaapp2020.appspot.com",
-  messagingSenderId: "550166390959",
-  appId: "1:550166390959:web:2cf69608208462e3120c5a",
-  measurementId: "G-DYC5VG4D2P",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGE_SENDER_ID,
+  appId: APP_ID,
 };
 
 // Initialize Firebase
