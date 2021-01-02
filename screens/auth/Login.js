@@ -1,35 +1,20 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, Text, StyleSheet, Button, Alert, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
 import Firebase, { db } from "../../config/Firebase";
+import { login } from "../../actions/user";
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // async function handleLogin() {
-  //   try {
-  //     const response = await Firebase.auth().signInWithEmailAndPassword(
-  //       email,
-  //       password
-  //     );
+  const dispatch = useDispatch();
 
-  //     try {
-  //       const user = await db.collection("users").doc(response.user.uid).get();
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  const handleLogin = () => {
-    Firebase.auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => navigation.navigate("Home"))
-      .catch((error) => console.log(error));
-  };
+  async function handleLogin() {
+    dispatch(login(email, password));
+    navigation.navigate("Home");
+  }
 
   return (
     <View style={styles.container}>
@@ -115,8 +100,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#020D0D",
   },
 });
-
-//Firebase.auth()
-//   .signInWithEmailAndPassword(email, password)
-//   .then(() => props.navigation.navigate("Home"))
-//   .catch((error) => console.log(error));

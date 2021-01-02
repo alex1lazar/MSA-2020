@@ -1,33 +1,20 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, Text, StyleSheet, Button, TextInput, Alert } from "react-native";
-import Firebase, { db } from "../../config/Firebase";
+
+import { useDispatch } from "react-redux";
+import { signup } from "../../actions/user";
 
 const SignupPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
 
-  async function handleSignup() {
-    try {
-      const response = await Firebase.auth().createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(response);
-      if (response.user.uid) {
-        const user = {
-          uid: response.user.uid,
-          fullName: fullName,
-          email: email,
-        };
+  const dispatch = useDispatch();
 
-        db.collection("users").doc(response.user.uid).set(user);
-        navigation.navigate("Home");
-      }
-    } catch (e) {
-      console.log(e);
-    }
+  async function handleSignup() {
+    dispatch(signup(email, password, fullName));
+    navigation.navigate("Home");
   }
 
   return (
@@ -132,14 +119,3 @@ const styles = StyleSheet.create({
     color: "transparent",
   },
 });
-// Firebase.auth()
-//   .createUserWithEmailAndPassword(email, password)
-//   .then(() => {
-//
-
-//     db.collection("users").doc().set({
-//       fullName: fullName,
-//       email: email,
-//     });
-//   })
-//   .catch((error) => console.log(error));
