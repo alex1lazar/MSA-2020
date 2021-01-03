@@ -1,9 +1,22 @@
 import Firebase, { db } from "../../config/Firebase";
-import { GET_USER, SIGN_IN, SIGN_UP, UPDATE_TASKS } from "./types";
+import {
+  GET_USER,
+  SIGN_IN,
+  SIGN_UP,
+  UPDATE_SELECTED_DATE,
+  UPDATE_TASKS,
+} from "./types";
 
 export const updateTasks = (payload) => {
   return {
     type: UPDATE_TASKS,
+    payload: payload,
+  };
+};
+
+export const updateSelectedDate = (payload) => {
+  return {
+    type: UPDATE_SELECTED_DATE,
     payload: payload,
   };
 };

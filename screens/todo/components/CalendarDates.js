@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { StyleSheet, View } from "react-native";
 
 import Colors from "../../../constants/colors";
+
+import { updateSelectedDate } from "../../../store/actions";
 
 import CalendarSingleDate from "./CalendarSingleDate";
 
@@ -33,9 +36,9 @@ const createNextDates = () => {
   return dates;
 };
 
-const CalendarDates = (props) => {
-  const { setActiveDate } = props;
+const CalendarDates = () => {
   const [currentActiveDate, setCurrentActiveDate] = useState("");
+  const dispatch = useDispatch();
   const dates = createNextDates();
 
   useEffect(() => {
@@ -45,14 +48,16 @@ const CalendarDates = (props) => {
     const month = (today.getUTCMonth() + 1).toString();
 
     setCurrentActiveDate(day + "." + month);
-    setActiveDate(day + "." + month);
   }, []);
+
+  useEffect(() => {
+    dispatch(updateSelectedDate(currentActiveDate));
+  }, [currentActiveDate]);
 
   const renderedDates = dates.map((date, i) => (
     <CalendarSingleDate
       setCurrentDate={(date) => {
         setCurrentActiveDate(date.date);
-        setActiveDate(date.date);
       }}
       date={date}
       style={currentActiveDate === date.date && styles.activeDay}
