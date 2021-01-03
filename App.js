@@ -27,14 +27,14 @@ const App = () => {
           {/* <Stack.Screen name="Signup" component={SignupPage} />
           <Stack.Screen name="Login" component={LoginPage} /> */}
           <Stack.Screen
-            name="Todo"
-            component={Todo}
+            name="AddTask"
+            component={AddTask}
             options={{ headerShown: false }}
           />
 
           <Stack.Screen
-            name="AddTask"
-            component={AddTask}
+            name="Todo"
+            component={Todo}
             options={{ headerShown: false }}
           />
 
