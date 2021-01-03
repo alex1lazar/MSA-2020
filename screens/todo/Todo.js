@@ -62,7 +62,7 @@ const Todo = (props) => {
         </Text>
       )}
 
-      <Navbar />
+      <Navbar navigation={props.navigation} />
     </View>
   );
 };

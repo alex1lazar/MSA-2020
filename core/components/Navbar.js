@@ -1,27 +1,60 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { Icon } from "react-native-elements";
+import { useRoute } from "@react-navigation/native";
 
 import Colors from "../../constants/colors";
 
 const navbarOptions = [
-  { iconName: "check-square", iconType: "feather", size: 32, text: "Todo" },
-  { iconName: "ios-add-circle", iconType: "ionicon", size: 52 },
-  { iconName: "ios-alarm", iconType: "ionicon", size: 32, text: "Focus" },
+  {
+    iconName: "check-square",
+    iconType: "feather",
+    size: 32,
+    text: "Todo",
+    component: "Todo",
+  },
+  {
+    iconName: "ios-add-circle",
+    iconType: "ionicon",
+    size: 52,
+    component: "AddTask",
+  },
+  {
+    iconName: "ios-alarm",
+    iconType: "ionicon",
+    size: 32,
+    text: "Focus",
+    component: "Focus",
+  },
 ];
 
-const Navbar = () => {
-  const renderedOptions = navbarOptions.map((option, index) => (
-    <View key={index}>
-      <Icon
-        name={option.iconName}
-        type={option.iconType}
-        size={option.size}
-        color={Colors.text}
-      />
+const Navbar = ({ navigation }) => {
+  const route = useRoute();
 
-      <Text style={styles.optionText}>{option.text}</Text>
-    </View>
+  const renderedOptions = navbarOptions.map((option, index) => (
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate(option.component)}
+      key={index}
+    >
+      <View onTouch>
+        <Icon
+          name={option.iconName}
+          type={option.iconType}
+          size={option.size}
+          color={route.name === option.component ? "#fff" : Colors.text}
+        />
+
+        <Text
+          style={
+            route.name === option.component
+              ? styles.selectedOptionText
+              : styles.optionText
+          }
+        >
+          {option.text}
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
   ));
 
   return <View style={styles.navbar}>{renderedOptions}</View>;
@@ -45,6 +78,10 @@ const styles = StyleSheet.create({
 
   optionText: {
     color: Colors.text,
+  },
+
+  selectedOptionText: {
+    color: "#fff",
   },
 });
 

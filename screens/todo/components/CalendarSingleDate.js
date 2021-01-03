@@ -7,11 +7,7 @@ const CalendarSingleDate = (props) => {
   const { date, setCurrentDate } = props;
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        setCurrentDate(date);
-      }}
-    >
+    <TouchableWithoutFeedback onPress={() => setCurrentDate(date)}>
       <View style={[styles.container, props.style]} onTouch>
         <Text style={styles.text}>{date.weekday}</Text>
         <Text style={styles.text}>{date.date}</Text>

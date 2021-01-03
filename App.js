@@ -8,6 +8,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import reducers from "./store/reducers";
 import { createReduxStore } from "./services/store";
 
+import AddTask from "./screens/addTask";
+import Focus from "./screens/focus";
 import LoginPage from "./screens/auth/Login";
 import SignupPage from "./screens/auth/Signup";
 import Todo from "./screens/todo";
@@ -15,7 +17,9 @@ import Todo from "./screens/todo";
 const store = createReduxStore(reducers);
 const Stack = createStackNavigator();
 
-export default function App() {
+//TODO: NAVBAR FOR SCREENS, REMOVE FROM EACH
+
+const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -27,8 +31,22 @@ export default function App() {
             component={Todo}
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen
+            name="AddTask"
+            component={AddTask}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="Focus"
+            component={Focus}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
-}
+};
+
+export default App;
