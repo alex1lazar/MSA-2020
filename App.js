@@ -1,19 +1,18 @@
 import React from "react";
+import { Provider } from "react-redux";
 import "react-native-gesture-handler";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+
+import reducers from "./store/reducers";
+import { createReduxStore } from "./services/store";
+
 import LoginPage from "./screens/auth/Login";
 import SignupPage from "./screens/auth/Signup";
 import Home from "./screens/home";
 
-import reducer from "./reducers";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import thunkMiddleware from "redux-thunk";
-
-const middleware = applyMiddleware(thunkMiddleware);
-const store = createStore(reducer, middleware);
-
+const store = createReduxStore(reducers);
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -21,9 +20,13 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Signup" component={SignupPage} />
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="Home" component={Home} />
+          {/* <Stack.Screen name="Signup" component={SignupPage} />
+          <Stack.Screen name="Login" component={LoginPage} /> */}
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

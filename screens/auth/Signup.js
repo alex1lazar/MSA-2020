@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View, Text, StyleSheet, Button, TextInput, Alert } from "react-native";
 
 import { useDispatch } from "react-redux";
-import { signup } from "../../actions/user";
+import { signUp } from "../../store/actions";
 
 const SignupPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const SignupPage = ({ navigation }) => {
   const dispatch = useDispatch();
 
   async function handleSignup() {
-    dispatch(signup(email, password, fullName));
+    dispatch(signUp(email, password, fullName));
     navigation.navigate("Home");
   }
 
@@ -117,5 +117,6 @@ const styles = StyleSheet.create({
   secondaryBttn: {
     backgroundColor: "#fff",
     color: "transparent",
+    marginTop: 24,
   },
 });

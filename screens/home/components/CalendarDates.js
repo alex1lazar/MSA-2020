@@ -73,9 +73,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
 
-    maxWidth: 315,
     width: "100%",
-    paddingLeft: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
   },
 });
 

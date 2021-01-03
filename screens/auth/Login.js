@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, Alert, TextInput } from "react-native";
+import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
-import Firebase, { db } from "../../config/Firebase";
-import { login } from "../../actions/user";
+import { signIn } from "../../store/actions";
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -12,7 +11,7 @@ const LoginPage = ({ navigation }) => {
   const dispatch = useDispatch();
 
   async function handleLogin() {
-    dispatch(login(email, password));
+    dispatch(signIn(email, password));
     navigation.navigate("Home");
   }
 
@@ -44,6 +43,7 @@ const LoginPage = ({ navigation }) => {
         <View style={styles.button}>
           <Button onPress={() => handleLogin()} title="LOGIN" color="#A53F2B" />
         </View>
+
         <View style={styles.secondaryBttn}>
           <Button
             title="Signup"
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
   },
+
   loginContainer: {
     color: "#fff",
     flex: 1,
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     width: "80%",
   },
+
   titleText: {
     color: "#fff",
     opacity: 87,
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 8,
   },
+
   subtitleText: {
     paddingTop: 24,
     paddingBottom: 16,
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     opacity: 87,
   },
+
   inputText: {
     color: "#fff",
     opacity: 87,
@@ -92,9 +96,11 @@ const styles = StyleSheet.create({
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
   },
+
   button: {
     paddingTop: 24,
   },
+
   secondaryBttn: {
     marginTop: 24,
     backgroundColor: "#020D0D",

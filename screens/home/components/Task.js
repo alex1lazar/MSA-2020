@@ -24,21 +24,16 @@ const Task = (props) => {
   });
 
   return (
-    <View
-      style={{
-        ...styles.mainPanel,
-        ...priorityStyles(task.priority).borderColor,
-      }}
-    >
+    <View style={[styles.mainPanel, priorityStyles(task.priority).borderColor]}>
       <View style={styles.taskContainer}>
         <CheckBox
           title={task.name}
           checked={checkedTask}
           onPress={() => setCheckedTask(!checkedTask)}
-          textStyle={styles.text}
-          containerStyle={styles.task}
           uncheckedColor="#106c6f"
           checkedColor="#106c6f"
+          textStyle={styles.text}
+          containerStyle={styles.task}
         />
 
         <Icon name="timer" size={44} color={Colors.secondaryLight} />

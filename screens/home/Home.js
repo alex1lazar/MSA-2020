@@ -1,95 +1,86 @@
-import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { Icon } from "react-native-elements";
 import Firebase from "../../config/Firebase";
 
-export default function Home({ navigation }) {
+import Colors from "../../constants/colors";
+
+import { updateTasks } from "../../store/actions";
+
+import CalendarDates from "./components/CalendarDates";
+import Task from "./components/Task";
+
+const tasksData = [
+  {
+    id: "1",
+    date: "3.1",
+    name: "Task1",
+    checked: false,
+    priority: "high",
+    subtasks: [
+      { id: "1", name: "Subtask 1", checked: false },
+      { id: "2", name: "Subtask 2", checked: false },
+    ],
+  },
+  { id: "2", date: "4.1", name: "Task2", checked: false, priority: "low" },
+  { id: "3", date: "3.1", name: "Task3", checked: false, priority: "medium" },
+];
+
+export const Home = ({ navigation }) => {
   const handleSignout = () => {
     Firebase.auth().signOut();
     navigation.navigate("Login");
   };
 
+  const tasks = useSelector((state) => state.profile.tasks);
+  const [activeDate, setActiveDate] = useState("");
+  const dispatch = useDispatch();
+
+  const renderedTasks = tasks
+    .filter((task) => task.date === activeDate)
+    .map((task, i) => <Task task={task} key={i} />);
+
+  useEffect(() => {
+    dispatch(updateTasks(tasksData));
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-      <Button title="Logout" onPress={handleSignout}></Button>
-// =======
-// import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { StyleSheet, Text, View } from "react-native";
-// import { Icon } from "react-native-elements";
+    <View style={styles.mainContainer}>
+      <View style={styles.calendarContainer}>
+        <Icon
+          name="calendar"
+          type="evilicon"
+          color={Colors.secondaryLight}
+          size={44}
+        />
 
-// import Colors from "../../constants/colors";
-// import { updateTasks } from "../../store/actions";
+        <CalendarDates setActiveDate={(date) => setActiveDate(date)} />
+      </View>
 
-// import CalendarDates from "./components/CalendarDates";
-// import Task from "./components/Task";
-
-// const tasksData = [
-//   {
-//     id: "1",
-//     date: "1.11",
-//     name: "Task1",
-//     checked: false,
-//     priority: "high",
-//     subtasks: [
-//       { id: "1", name: "Subtask 1", checked: false },
-//       { id: "2", name: "Subtask 2", checked: false },
-//     ],
-//   },
-//   { id: "2", date: "1.11", name: "Task2", checked: false, priority: "low" },
-//   { id: "3", date: "2.11", name: "Task3", checked: false, priority: "medium" },
-// ];
-
-// const Home = () => {
-//   const tasks = useSelector((state) => state.profile.tasks);
-//   const [activeDate, setActiveDate] = useState("");
-//   const dispatch = useDispatch();
-
-//   const renderedTasks = tasks
-//     .filter((task) => task.date === activeDate)
-//     .map((task, i) => {
-//       return <Task task={task} key={i} />;
-//     });
-
-//   useEffect(() => {
-//     dispatch(updateTasks(tasksData));
-//   }, []);
-
-//   return (
-//     <View>
-//       <View style={styles.calendarContainer}>
-//         <Icon
-//           name="calendar"
-//           type="evilicon"
-//           color={Colors.secondaryLight}
-//           size={44}
-//         />
-//         <CalendarDates setActiveDate={(date) => setActiveDate(date)} />
-//       </View>
-
-//       {renderedTasks.length ? (
-//         <View style={styles.tasksContainer}>{renderedTasks}</View>
-//       ) : (
-//         <Text style={styles.noTasksText}>
-//           You don't have any tasks assigned to this day.
-//         </Text>
-//       )}
-// >>>>>>> master
+      {renderedTasks.length ? (
+        <View style={styles.tasksContainer}>{renderedTasks}</View>
+      ) : (
+        <Text style={styles.noTasksText}>
+          You don't have any tasks assigned to this day.
+        </Text>
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+  mainContainer: {
+    padding: 10,
+    backgroundColor: Colors.background,
+    minHeight: "100vh",
   },
+
   calendarContainer: {
     flexDirection: "row",
     alignItems: "center",
 
+    marginTop: 24,
     marginBottom: 24,
     width: "100%",
   },
@@ -97,7 +88,7 @@ const styles = StyleSheet.create({
   noTasksText: {
     color: Colors.text,
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: "center",
   },
 });
 
