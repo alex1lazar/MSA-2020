@@ -4,9 +4,9 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import Firebase from "../../config/Firebase";
 
-import Colors from "../../constants/colors";
-
 import { updateTasks } from "../../store/actions";
+
+import Colors from "../../constants/colors";
 
 import CalendarDates from "./components/CalendarDates";
 import Navbar from "../../core/components/Navbar";
@@ -28,12 +28,7 @@ const tasksData = [
   { id: "3", date: "3.1", name: "Task3", checked: false, priority: "medium" },
 ];
 
-export const Home = ({ navigation }) => {
-  const handleSignout = () => {
-    Firebase.auth().signOut();
-    navigation.navigate("Login");
-  };
-
+const Todo = (props) => {
   const tasks = useSelector((state) => state.profile.tasks);
   const [activeDate, setActiveDate] = useState("");
   const dispatch = useDispatch();
@@ -47,7 +42,7 @@ export const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.todoContainer}>
       <View style={styles.calendarContainer}>
         <Icon
           name="calendar"
@@ -73,12 +68,6 @@ export const Home = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    padding: 10,
-    backgroundColor: Colors.background,
-    minHeight: "100vh",
-  },
-
   calendarContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -93,6 +82,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
   },
+
+  todoContainer: {
+    padding: 10,
+    backgroundColor: Colors.background,
+    minHeight: "100vh",
+  },
 });
 
-export default Home;
+export default Todo;

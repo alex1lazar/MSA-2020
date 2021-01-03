@@ -10,7 +10,7 @@ import { createReduxStore } from "./services/store";
 
 import LoginPage from "./screens/auth/Login";
 import SignupPage from "./screens/auth/Signup";
-import Home from "./screens/home";
+import Todo from "./screens/todo";
 
 const store = createReduxStore(reducers);
 const Stack = createStackNavigator();
@@ -23,8 +23,8 @@ export default function App() {
           {/* <Stack.Screen name="Signup" component={SignupPage} />
           <Stack.Screen name="Login" component={LoginPage} /> */}
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="Todo"
+            component={Todo}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
