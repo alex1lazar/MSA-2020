@@ -6,8 +6,6 @@ import Colors from "../../../constants/colors";
 const CalendarSingleDate = (props) => {
   const { date, setCurrentDate } = props;
 
-  console.log(props.style);
-
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -26,7 +24,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     borderRadius: 10,
-    paddingHorizontal: 6,
+    paddingHorizontal: 10,
     paddingVertical: 2,
   },
 

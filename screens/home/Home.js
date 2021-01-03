@@ -9,6 +9,7 @@ import Colors from "../../constants/colors";
 import { updateTasks } from "../../store/actions";
 
 import CalendarDates from "./components/CalendarDates";
+import Navbar from "../../core/components/Navbar";
 import Task from "./components/Task";
 
 const tasksData = [
@@ -65,6 +66,8 @@ export const Home = ({ navigation }) => {
           You don't have any tasks assigned to this day.
         </Text>
       )}
+
+      <Navbar />
     </View>
   );
 };

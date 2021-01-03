@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
 
     width: "100%",
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: "4vw",
+    paddingRight: "4vw",
     flex: 1,
   },
 });
