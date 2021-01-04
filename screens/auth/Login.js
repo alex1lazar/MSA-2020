@@ -1,20 +1,36 @@
 import * as React from "react";
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, Alert, TextInput } from "react-native";
-import { useDispatch } from "react-redux";
-import Firebase, { db } from "../../config/Firebase";
-import { login } from "../../actions/user";
+import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-community/async-storage";
+
+import { updateError, updateUid } from "../../store/actions";
+
+import ErrorBox from "../../core/components/ErrorBox";
+import Firebase from "../../config/Firebase";
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const error = useSelector((state) => state.profile.authError);
   const dispatch = useDispatch();
 
-  async function handleLogin() {
-    dispatch(login(email, password));
-    navigation.navigate("Home");
-  }
+  const signIn = async () => {
+    try {
+      const response = await Firebase.auth().signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await AsyncStorage.setItem("loggedIn", true);
+      dispatch(updateUid(response.user.uid));
+
+      navigation.navigate("Todo");
+    } catch (err) {
+      dispatch(updateError(err.message));
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -26,7 +42,7 @@ const LoginPage = ({ navigation }) => {
             style={styles.inputText}
             placeholder="e.g. x@mail.com"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(email) => setEmail({ email })}
+            onChangeText={(email) => setEmail(email)}
           />
         </View>
 
@@ -37,20 +53,23 @@ const LoginPage = ({ navigation }) => {
             secureTextEntry
             placeholder="more than 7 characters"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(password) => setPassword({ password })}
+            onChangeText={(password) => setPassword(password)}
           />
         </View>
 
         <View style={styles.button}>
-          <Button onPress={() => handleLogin()} title="LOGIN" color="#A53F2B" />
+          <Button onPress={signIn} title="Sign In" color="#A53F2B" />
         </View>
+
         <View style={styles.secondaryBttn}>
           <Button
-            title="Signup"
+            title="Go to Sign Up"
             onPress={() => navigation.navigate("Signup")}
           ></Button>
         </View>
       </View>
+
+      {error !== "" && <ErrorBox error={error} />}
     </View>
   );
 };
@@ -63,6 +82,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
   },
+
   loginContainer: {
     color: "#fff",
     flex: 1,
@@ -70,6 +90,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     width: "80%",
   },
+
   titleText: {
     color: "#fff",
     opacity: 87,
@@ -77,6 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 8,
   },
+
   subtitleText: {
     paddingTop: 24,
     paddingBottom: 16,
@@ -85,16 +107,20 @@ const styles = StyleSheet.create({
     color: "#fff",
     opacity: 87,
   },
+
   inputText: {
     color: "#fff",
     opacity: 87,
     paddingBottom: 4,
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
+    outlineWidth: 0,
   },
+
   button: {
     paddingTop: 24,
   },
+
   secondaryBttn: {
     marginTop: 24,
     backgroundColor: "#020D0D",

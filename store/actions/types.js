@@ -1,1 +1,5 @@
+export const GET_USER_TASKS = "GET_USER_TASKS";
 export const UPDATE_TASKS = "UPDATE_TASK";
+export const UPDATE_SELECTED_DATE = "UPDATE_SELECTED_DATE";
+export const UPDATE_ERROR = "UPDATE_ERROR";
+export const UPDATE_UID = "UPDATE_UID";
