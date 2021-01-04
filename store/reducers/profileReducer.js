@@ -1,6 +1,4 @@
 import {
-  GET_USER,
-  SIGN_IN,
   UPDATE_SELECTED_DATE,
   UPDATE_TASKS,
   UPDATE_ERROR,
@@ -19,9 +17,6 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_UID: {
       return { ...state, uid: action.payload };
-    }
-    case GET_USER: {
-      return { ...state, data: action.payload };
     }
     case UPDATE_SELECTED_DATE: {
       return { ...state, selectedDate: action.payload };

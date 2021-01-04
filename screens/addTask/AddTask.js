@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import { Button, Icon, Input } from "react-native-elements";
 import uuid from "react-native-uuid";
+import Firebase, { db } from "../../config/Firebase";
 
 import Colors from "../../constants/colors";
 
@@ -13,7 +14,6 @@ const AddTask = (props) => {
 
   const dispatch = useDispatch();
   const selectedDate = useSelector((state) => state.profile.selectedDate);
-  const tasks = useSelector((state) => state.profile.tasks);
 
   const [task, setTask] = useState({
     name: "",
@@ -22,6 +22,7 @@ const AddTask = (props) => {
     priority: "important",
     subtasks: [],
     checked: false,
+    username: Firebase.auth().currentUser.email,
   });
   const [currentSubtask, setCurrentSubtask] = useState("");
 
@@ -128,6 +129,7 @@ const AddTask = (props) => {
             buttonStyle={[styles.button, styles.saveButton]}
             onPress={() => {
               dispatch(updateTasks(task));
+              db.collection("tasks").doc(task.id).set(task);
               navigation.navigate("Todo");
             }}
           />

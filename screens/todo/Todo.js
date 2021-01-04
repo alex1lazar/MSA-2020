@@ -1,9 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
+import Firebase, { db } from "../../config/Firebase";
 
 import Colors from "../../constants/colors";
+
+import { updateTasks } from "../../store/actions";
 
 import CalendarDates from "./components/CalendarDates";
 import Navbar from "../../core/components/Navbar";
@@ -11,8 +14,17 @@ import Task from "./components/Task";
 
 const Todo = (props) => {
   const tasks = useSelector((state) => state.profile.tasks);
-
   const activeDate = useSelector((state) => state.profile.selectedDate);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    db.collection("tasks")
+      .where("username", "==", Firebase.auth().currentUser.email)
+      .get()
+      .then((data) =>
+        data.docs.map((doc) => dispatch(updateTasks(doc.data())))
+      );
+  }, []);
 
   const renderedTasks = tasks
     .filter((task) => task.date === activeDate)
