@@ -1,19 +1,36 @@
 import * as React from "react";
 import { useState } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
-import { useDispatch } from "react-redux";
-import { signIn } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-community/async-storage";
+
+import { updateError, updateUid } from "../../store/actions";
+
+import ErrorBox from "../../core/components/ErrorBox";
+import Firebase from "../../config/Firebase";
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const error = useSelector((state) => state.profile.authError);
   const dispatch = useDispatch();
 
-  async function handleLogin() {
-    dispatch(signIn(email, password));
-    navigation.navigate("Home");
-  }
+  const signIn = async () => {
+    try {
+      const response = await Firebase.auth().signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await AsyncStorage.setItem("loggedIn", true);
+      dispatch(updateUid(response.user.uid));
+
+      navigation.navigate("Todo");
+    } catch (err) {
+      dispatch(updateError(err.message));
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -25,7 +42,7 @@ const LoginPage = ({ navigation }) => {
             style={styles.inputText}
             placeholder="e.g. x@mail.com"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(email) => setEmail({ email })}
+            onChangeText={(email) => setEmail(email)}
           />
         </View>
 
@@ -36,21 +53,23 @@ const LoginPage = ({ navigation }) => {
             secureTextEntry
             placeholder="more than 7 characters"
             placeholderTextColor="#9A9A9A"
-            onChangeText={(password) => setPassword({ password })}
+            onChangeText={(password) => setPassword(password)}
           />
         </View>
 
         <View style={styles.button}>
-          <Button onPress={() => handleLogin()} title="LOGIN" color="#A53F2B" />
+          <Button onPress={signIn} title="Sign In" color="#A53F2B" />
         </View>
 
         <View style={styles.secondaryBttn}>
           <Button
-            title="Signup"
+            title="Go to Sign Up"
             onPress={() => navigation.navigate("Signup")}
           ></Button>
         </View>
       </View>
+
+      {error !== "" && <ErrorBox error={error} />}
     </View>
   );
 };
@@ -95,6 +114,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
+    outlineWidth: 0,
   },
 
   button: {

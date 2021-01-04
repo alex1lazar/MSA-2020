@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
 
   input: {
     color: Colors.text,
-    outlineColor: "transparent",
     outlineWidth: 0,
     paddingHorizontal: 5,
   },

@@ -3,6 +3,8 @@ import {
   SIGN_IN,
   UPDATE_SELECTED_DATE,
   UPDATE_TASKS,
+  UPDATE_ERROR,
+  UPDATE_UID,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -10,11 +12,12 @@ const INITIAL_STATE = {
   data: {},
   tasks: [],
   selectedDate: "",
+  authError: "",
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SIGN_IN: {
+    case UPDATE_UID: {
       return { ...state, uid: action.payload };
     }
     case GET_USER: {
@@ -22,6 +25,9 @@ export default (state = INITIAL_STATE, action) => {
     }
     case UPDATE_SELECTED_DATE: {
       return { ...state, selectedDate: action.payload };
+    }
+    case UPDATE_ERROR: {
+      return { ...state, authError: action.payload };
     }
     case UPDATE_TASKS: {
       return {
