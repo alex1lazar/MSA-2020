@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { CheckBox, Icon } from "react-native-elements";
+import { CheckBox } from "react-native-elements";
 
 import Colors from "../../../constants/colors";
 
@@ -35,8 +35,6 @@ const Task = (props) => {
           textStyle={styles.text}
           containerStyle={styles.task}
         />
-
-        <Icon name="timer" size={44} color={Colors.secondaryLight} />
       </View>
 
       <View>{renderedSubtasks}</View>

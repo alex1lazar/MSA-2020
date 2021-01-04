@@ -13,6 +13,7 @@ import Firebase from "./config/Firebase";
 
 import AddTask from "./screens/addTask";
 import Focus from "./screens/focus";
+import Loading from "./screens/loading";
 import LoginPage from "./screens/auth/Login";
 import SignupPage from "./screens/auth/Signup";
 import Todo from "./screens/todo";
@@ -22,6 +23,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Firebase.auth().onAuthStateChanged((user) => {
@@ -29,6 +31,7 @@ const App = () => {
         setUserLoggedIn(true);
         AsyncStorage.setItem("loggedIn", true);
       } else AsyncStorage.setItem("loggedIn", false);
+      setLoading(false);
     });
   }, []);
 
@@ -36,38 +39,48 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {!userLoggedIn && (
+          {loading && (
             <Stack.Screen
-              name="Signup"
-              component={SignupPage}
+              name="Loading"
+              component={Loading}
               options={{ headerShown: false }}
             />
           )}
 
-          {!userLoggedIn && (
+          <>
+            {!userLoggedIn && (
+              <Stack.Screen
+                name="Signup"
+                component={SignupPage}
+                options={{ headerShown: false }}
+              />
+            )}
+
+            {!userLoggedIn && (
+              <Stack.Screen
+                name="Login"
+                component={LoginPage}
+                options={{ headerShown: false }}
+              />
+            )}
+
             <Stack.Screen
-              name="Login"
-              component={LoginPage}
+              name="Todo"
+              component={Todo}
               options={{ headerShown: false }}
             />
-          )}
+            <Stack.Screen
+              name="AddTask"
+              component={AddTask}
+              options={{ headerShown: false }}
+            />
 
-          <Stack.Screen
-            name="Todo"
-            component={Todo}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="AddTask"
-            component={AddTask}
-            options={{ headerShown: false }}
-          />
-
-          <Stack.Screen
-            name="Focus"
-            component={Focus}
-            options={{ headerShown: false }}
-          />
+            <Stack.Screen
+              name="Focus"
+              component={Focus}
+              options={{ headerShown: false }}
+            />
+          </>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
