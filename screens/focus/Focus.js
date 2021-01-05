@@ -1,5 +1,12 @@
 import React from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  SectionList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Button } from "react-native-elements";
 
 import Colors from "../../constants/colors";
@@ -23,6 +30,36 @@ const Focus = (props) => {
         <Text style={styles.heading}>Start a focus session</Text>
 
         <SafeAreaView style={{ flex: 1 }}>
+          <SectionList
+            stickySectionHeadersEnabled={false}
+            renderSectionHeader={(_) => (
+              <>
+                <FlatList
+                  horizontal
+                  data={[
+                    { value: "1" },
+                    { value: "2" },
+                    { value: "3" },
+                    { value: "4" },
+                    { value: "5" },
+                    { value: "6" },
+                  ]}
+                  renderItem={({ item }) => (
+                    <View
+                      style={{
+                        height: 60,
+                        width: 60,
+                        backgroundColor: "yellow",
+                        margin: 10,
+                      }}
+                    >
+                      <Text>{item.value}</Text>
+                    </View>
+                  )}
+                />
+              </>
+            )}
+          />
           <FlatList
             horizontal
             data={[
