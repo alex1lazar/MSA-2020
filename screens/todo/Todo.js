@@ -6,7 +6,7 @@ import Firebase, { db } from "../../config/Firebase";
 
 import Colors from "../../constants/colors";
 
-import { updateTasks } from "../../store/actions";
+import { getUserTasks } from "../../store/actions";
 
 import CalendarDates from "./components/CalendarDates";
 import Navbar from "../../core/components/Navbar";
@@ -22,7 +22,7 @@ const Todo = (props) => {
       .where("username", "==", Firebase.auth().currentUser.email)
       .get()
       .then((data) =>
-        data.docs.map((doc) => dispatch(updateTasks(doc.data())))
+        data.docs.map((doc) => dispatch(getUserTasks(doc.data())))
       );
   }, []);
 

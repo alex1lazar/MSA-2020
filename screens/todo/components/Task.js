@@ -1,12 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
 import { CheckBox } from "react-native-elements";
+import Firebase, { db } from "../../../config/Firebase";
+
+import { updateTasks } from "../../../store/actions";
 
 import Colors from "../../../constants/colors";
 
 const Task = (props) => {
   const { task } = props;
-  const [checkedTask, setCheckedTask] = useState(false);
+  const tasks = useSelector((state) => state.profile.tasks).filter(
+    (t) => t.date === task.date
+  );
+  const dispatch = useDispatch();
+
+  const checkTask = () => {
+    const updatedTasks = tasks.map((t) => {
+      if (t.id === task.id) {
+        const updatedSubtasks = t.subtasks.map((subtask) => ({
+          ...subtask,
+          checked: !task.checked,
+        }));
+        return { ...task, checked: !task.checked, subtasks: updatedSubtasks };
+      } else return t;
+    });
+    dispatch(updateTasks(updatedTasks));
+    db.collection("tasks")
+      .doc(task.id)
+      .set(updatedTasks.filter((t) => t.id === task.id)[0]);
+  };
+
+  const checkSubtask = (subtaskId) => {
+    if (task.checked === false) {
+      const updatedTasks = tasks.map((t) => {
+        if (t.id === task.id) {
+          const updatedSubtasks = t.subtasks.map((subtask) => {
+            if (subtask.id === subtaskId) {
+              return { ...subtask, checked: !subtask.checked };
+            } else return subtask;
+          });
+
+          return { ...task, subtasks: updatedSubtasks };
+        } else return t;
+      });
+
+      dispatch(updateTasks(updatedTasks));
+      db.collection("tasks")
+        .doc(task.id)
+        .set(updatedTasks.filter((t) => t.id === task.id)[0]);
+    } else return;
+  };
 
   const renderedSubtasks = task.subtasks?.map((subtask, i) => {
     return (
@@ -14,6 +58,7 @@ const Task = (props) => {
         key={i}
         size={16}
         title={subtask.name}
+        onPress={() => checkSubtask(subtask.id)}
         checked={subtask.checked}
         uncheckedColor="#106c6f"
         checkedColor="#106c6f"
@@ -28,8 +73,8 @@ const Task = (props) => {
       <View style={styles.taskContainer}>
         <CheckBox
           title={task.name}
-          checked={checkedTask}
-          onPress={() => setCheckedTask(!checkedTask)}
+          checked={task.checked}
+          onPress={checkTask}
           uncheckedColor="#106c6f"
           checkedColor="#106c6f"
           textStyle={styles.text}

@@ -1,4 +1,5 @@
 import {
+  GET_USER_TASKS,
   UPDATE_SELECTED_DATE,
   UPDATE_TASKS,
   UPDATE_ERROR,
@@ -15,6 +16,9 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case GET_USER_TASKS: {
+      return { ...state, tasks: [...state.tasks, action.payload] };
+    }
     case UPDATE_UID: {
       return { ...state, uid: action.payload };
     }
@@ -27,7 +31,7 @@ export default (state = INITIAL_STATE, action) => {
     case UPDATE_TASKS: {
       return {
         ...state,
-        tasks: [...state.tasks, action.payload],
+        tasks: action.payload,
       };
     }
 

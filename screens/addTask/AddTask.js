@@ -14,6 +14,7 @@ const AddTask = (props) => {
 
   const dispatch = useDispatch();
   const selectedDate = useSelector((state) => state.profile.selectedDate);
+  const tasks = useSelector((state) => state.profile.tasks);
 
   const [task, setTask] = useState({
     name: "",
@@ -128,7 +129,7 @@ const AddTask = (props) => {
             title="Save"
             buttonStyle={[styles.button, styles.saveButton]}
             onPress={() => {
-              dispatch(updateTasks(task));
+              dispatch(updateTasks([...tasks, task]));
               db.collection("tasks").doc(task.id).set(task);
               navigation.navigate("Todo");
             }}
