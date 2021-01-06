@@ -64,12 +64,6 @@ const App = () => {
               />
             )}
             <Stack.Screen
-              name="Focus"
-              component={Focus}
-              options={{ headerShown: false }}
-            />
-
-            <Stack.Screen
               name="Todo"
               component={Todo}
               options={{ headerShown: false }}
@@ -77,6 +71,11 @@ const App = () => {
             <Stack.Screen
               name="AddTask"
               component={AddTask}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Focus"
+              component={Focus}
               options={{ headerShown: false }}
             />
           </>
