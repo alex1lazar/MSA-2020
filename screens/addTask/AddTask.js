@@ -133,6 +133,7 @@ const AddTask = (props) => {
               db.collection("tasks").doc(task.id).set(task);
               navigation.navigate("Todo");
             }}
+            disabled={task.name ? false : true}
           />
         </View>
       </View>
