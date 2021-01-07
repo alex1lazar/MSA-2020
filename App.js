@@ -22,15 +22,11 @@ const store = createReduxStore(reducers);
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUserLoggedIn(true);
-        AsyncStorage.setItem("loggedIn", true);
-      } else AsyncStorage.setItem("loggedIn", false);
+      if (user) AsyncStorage.setItem("loggedIn", true);
       setLoading(false);
     });
   }, []);
@@ -48,21 +44,18 @@ const App = () => {
           )}
 
           <>
-            {!userLoggedIn && (
-              <Stack.Screen
-                name="Signup"
-                component={SignupPage}
-                options={{ headerShown: false }}
-              />
-            )}
+            <Stack.Screen
+              name="Signup"
+              component={SignupPage}
+              options={{ headerShown: false }}
+            />
 
-            {!userLoggedIn && (
-              <Stack.Screen
-                name="Login"
-                component={LoginPage}
-                options={{ headerShown: false }}
-              />
-            )}
+            <Stack.Screen
+              name="Login"
+              component={LoginPage}
+              options={{ headerShown: false }}
+            />
+
             <Stack.Screen
               name="Todo"
               component={Todo}

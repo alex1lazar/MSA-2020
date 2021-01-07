@@ -6,6 +6,7 @@ import Firebase, { db } from "../../config/Firebase";
 import { updateError } from "../../store/actions";
 
 import ErrorBox from "../../core/components/ErrorBox";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const SignupPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,16 @@ const SignupPage = ({ navigation }) => {
 
   const error = useSelector((state) => state.profile.authError);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    AsyncStorage.getItem("loggedIn").then((data) => {
+      if (data) navigation.navigate("Login");
+    });
+
+    Firebase.auth().onAuthStateChanged((user) => {
+      if (user) navigation.navigate("Todo");
+    });
+  }, []);
 
   const signUp = async () => {
     if (fullName === "") dispatch(updateError("Full name is required !"));
