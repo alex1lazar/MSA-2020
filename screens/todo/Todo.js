@@ -39,7 +39,7 @@ const Todo = ({ navigation }) => {
           color={Colors.secondaryLight}
           size={32}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate("Signup");
             Firebase.auth().signOut();
           }}
         />

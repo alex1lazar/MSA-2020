@@ -16,10 +16,6 @@ const LoginPage = ({ navigation }) => {
   const error = useSelector((state) => state.profile.authError);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("Test");
-  }, []);
-
   const signIn = async () => {
     try {
       const response = await Firebase.auth().signInWithEmailAndPassword(
