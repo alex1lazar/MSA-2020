@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
 import { CheckBox } from "react-native-elements";
-import Firebase, { db } from "../../../config/Firebase";
+import { db } from "../../../config/Firebase";
 
 import { updateTasks } from "../../../store/actions";
 

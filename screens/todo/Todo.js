@@ -12,7 +12,7 @@ import CalendarDates from "./components/CalendarDates";
 import Navbar from "../../core/components/Navbar";
 import Task from "./components/Task";
 
-const Todo = (props) => {
+const Todo = ({ navigation }) => {
   const tasks = useSelector((state) => state.profile.tasks);
   const activeDate = useSelector((state) => state.profile.selectedDate);
   const dispatch = useDispatch();
@@ -34,10 +34,14 @@ const Todo = (props) => {
     <View style={styles.todoContainer}>
       <View style={styles.calendarContainer}>
         <Icon
-          name="calendar"
-          type="evilicon"
+          name="ios-log-out"
+          type="ionicon"
           color={Colors.secondaryLight}
-          size={44}
+          size={32}
+          onPress={() => {
+            navigation.navigate("Login");
+            Firebase.auth().signOut();
+          }}
         />
 
         <CalendarDates />
@@ -51,7 +55,7 @@ const Todo = (props) => {
         </Text>
       )}
 
-      <Navbar navigation={props.navigation} />
+      <Navbar navigation={navigation} />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,10 @@ const LoginPage = ({ navigation }) => {
 
   const error = useSelector((state) => state.profile.authError);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("Test");
+  }, []);
 
   const signIn = async () => {
     try {
@@ -65,7 +69,7 @@ const LoginPage = ({ navigation }) => {
           <Button
             title="Go to Sign Up"
             onPress={() => navigation.navigate("Signup")}
-          ></Button>
+          />
         </View>
       </View>
 
