@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "MSA-2020",
+    "sdkVersion": "38.0.0",
     "slug": "MSA-2020",
     "version": "1.0.0",
     "orientation": "portrait",

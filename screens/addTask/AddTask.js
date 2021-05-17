@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    borderRadius: "20px",
+    borderRadius: 20,
     minWidth: 100,
   },
 
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   flag: {
-    borderRadius: "4px",
+    borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 2,
   },
@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
 
   input: {
     color: Colors.text,
-    outlineWidth: 0,
     paddingHorizontal: 5,
   },
 

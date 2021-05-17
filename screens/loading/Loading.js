@@ -14,7 +14,7 @@ const Loading = () => {
 const styles = StyleSheet.create({
   loadingContainer: {
     backgroundColor: Colors.background,
-    position: "fixed",
+    position: "absolute",
     top: 0,
     left: 0,
     width: "100%",

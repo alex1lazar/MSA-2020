@@ -12,18 +12,16 @@ const ErrorBox = ({ error }) => {
 const styles = StyleSheet.create({
   errorBox: {
     backgroundColor: "#ff4444",
-    position: "fixed",
+    position: "absolute",
     bottom: 15,
-    left: "50%",
-    transform: "translateX(-50%)",
-    borderRadius: "10px",
+    borderRadius: 10,
     padding: 15,
     width: "85%",
   },
 
   errorBoxText: {
     color: "#fff",
-    fontSize: ".9rem",
+    fontSize: 10,
   },
 });
 

@@ -62,7 +62,7 @@ const Navbar = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   navbar: {
-    position: "fixed",
+    position: "absolute",
     bottom: 0,
     left: 0,
     width: "100%",

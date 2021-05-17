@@ -175,7 +175,7 @@ const Focus = (props) => {
 const styles = StyleSheet.create({
   focusButton: {
     backgroundColor: Colors.secondaryLight,
-    borderRadius: "20px",
+    borderRadius: 20,
     width: 150,
   },
 
@@ -194,10 +194,10 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    position: "fixed",
+    position: "absolute",
     bottom: 100,
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: [{ translateX: "-50%" }],
   },
 
   text: {
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
 
   pauseButton: {
     backgroundColor: "#111e1e",
-    borderRadius: "20px",
+    borderRadius: 20,
     width: 120,
     marginLeft: 10,
   },

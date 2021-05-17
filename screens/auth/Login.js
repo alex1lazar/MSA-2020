@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   loginContainer: {
     color: "#fff",
     flex: 1,
-    alignItems: "left",
     paddingTop: 25,
     width: "80%",
   },
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 16,
     fontSize: 16,
-    fontWeight: "medium",
+    fontWeight: "500",
     color: "#fff",
     opacity: 87,
   },
@@ -114,7 +113,6 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
-    outlineWidth: 0,
   },
 
   button: {

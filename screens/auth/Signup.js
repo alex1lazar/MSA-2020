@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
   signupContainer: {
     color: "#fff",
     flex: 1,
-    alignItems: "left",
     paddingTop: 25,
     width: "80%",
   },
@@ -143,11 +142,10 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
-    outlineWidth: 0,
+    width: "100%",
   },
   button: {
     paddingTop: 24,
-    // borderRadius: 24,
   },
   secondaryBttn: {
     backgroundColor: "#fff",
