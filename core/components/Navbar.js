@@ -14,10 +14,11 @@ const navbarOptions = [
     component: "Todo",
   },
   {
-    iconName: "ios-add-circle",
-    iconType: "ionicon",
-    size: 52,
-    component: "AddTask",
+    iconName: "bar-chart-2",
+    iconType: "feather",
+    size: 32,
+    text: "Statistics",
+    component: "Statistics",
   },
   {
     iconName: "ios-alarm",
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     backgroundColor: Colors.primaryLight,
-    paddingHorizontal: 70,
+    paddingHorizontal: 50,
     paddingVertical: 5,
 
     display: "flex",

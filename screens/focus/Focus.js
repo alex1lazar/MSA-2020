@@ -8,7 +8,6 @@ import {
   Vibration,
 } from "react-native";
 import { Button } from "react-native-elements";
-import colors from "../../constants/colors";
 import Colors from "../../constants/colors";
 
 import Navbar from "../../core/components/Navbar";

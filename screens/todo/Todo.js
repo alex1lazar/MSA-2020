@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { Icon } from "react-native-elements";
 import Firebase, { db } from "../../config/Firebase";
 
@@ -12,7 +12,18 @@ import CalendarDates from "./components/CalendarDates";
 import Navbar from "../../core/components/Navbar";
 import Task from "./components/Task";
 
-const Todo = ({ navigation }) => {
+const checkCurrentYear = (task) => {
+  const currentYear = new Date().getFullYear();
+
+  if (new Date(task.timestamp).getFullYear() === currentYear) {
+    return true;
+  }
+
+  return false;
+};
+
+const Todo = (props) => {
+  const { navigation } = props;
   const tasks = useSelector((state) => state.profile.tasks);
   const activeDate = useSelector((state) => state.profile.selectedDate);
   const dispatch = useDispatch();
@@ -27,7 +38,7 @@ const Todo = ({ navigation }) => {
   }, []);
 
   const renderedTasks = tasks
-    .filter((task) => task.date === activeDate)
+    .filter((task) => task.date === activeDate && checkCurrentYear(task))
     .map((task, i) => <Task task={task} key={i} />);
 
   return (
@@ -54,6 +65,17 @@ const Todo = ({ navigation }) => {
           You don't have any tasks assigned to this day.
         </Text>
       )}
+
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("AddTask")}>
+        <View onTouch>
+          <Icon
+            name="ios-add-circle"
+            type="ionicon"
+            size={52}
+            color={Colors.text}
+          />
+        </View>
+      </TouchableWithoutFeedback>
 
       <Navbar navigation={navigation} />
     </View>

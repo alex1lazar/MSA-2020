@@ -129,8 +129,15 @@ const AddTask = (props) => {
             title="Save"
             buttonStyle={[styles.button, styles.saveButton]}
             onPress={() => {
-              dispatch(updateTasks([...tasks, task]));
-              db.collection("tasks").doc(task.id).set(task);
+              dispatch(
+                updateTasks([
+                  ...tasks,
+                  { ...task, timestamp: new Date().getTime() },
+                ])
+              );
+              db.collection("tasks")
+                .doc(task.id)
+                .set({ ...task, timestamp: new Date().getTime() });
               navigation.navigate("Todo");
             }}
             disabled={task.name ? false : true}

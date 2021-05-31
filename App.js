@@ -16,6 +16,7 @@ import Focus from "./screens/focus";
 import Loading from "./screens/loading";
 import LoginPage from "./screens/auth/Login";
 import SignupPage from "./screens/auth/Signup";
+import Statistics from "./screens/statistics";
 import Todo from "./screens/todo";
 
 const store = createReduxStore(reducers);
@@ -64,6 +65,11 @@ const App = () => {
             <Stack.Screen
               name="AddTask"
               component={AddTask}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Statistics"
+              component={Statistics}
               options={{ headerShown: false }}
             />
             <Stack.Screen
