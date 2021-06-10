@@ -6,7 +6,7 @@ import Firebase, { db } from "../../config/Firebase";
 
 import Colors from "../../constants/colors";
 
-import { getUserTasks } from "../../store/actions";
+import { getUserTasks, updateTasks } from "../../store/actions";
 
 import CalendarDates from "./components/CalendarDates";
 import Navbar from "../../core/components/Navbar";
@@ -51,6 +51,7 @@ const Todo = (props) => {
           size={32}
           onPress={() => {
             navigation.navigate("Signup");
+            dispatch(updateTasks([]));
             Firebase.auth().signOut();
           }}
         />
