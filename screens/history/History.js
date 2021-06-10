@@ -5,6 +5,8 @@ import { Icon } from "react-native-elements";
 
 import Colors from "../../constants/colors";
 
+import Navbar from "../../core/components/Navbar";
+
 const timestampToDate = (timestamp) => {
   return new Date(timestamp).toLocaleDateString("en-US", {
     day: "numeric",
@@ -13,7 +15,9 @@ const timestampToDate = (timestamp) => {
   });
 };
 
-const History = () => {
+const History = (props) => {
+  const { navigation } = props;
+
   const tasks = useSelector((state) => state.profile.tasks).sort(
     (a, b) => b.timestamp - a.timestamp
   );
@@ -79,6 +83,8 @@ const History = () => {
       <Text style={styles.headerText}>History</Text>
 
       <View>{renderedGroupedTasks}</View>
+
+      <Navbar navigation={navigation} />
     </View>
   );
 };
@@ -103,6 +109,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: Colors.background,
     minHeight: "100vh",
+    paddingBottom: 50,
   },
 
   groupedTaskContainer: {
