@@ -21,6 +21,13 @@ const navbarOptions = [
     component: "Statistics",
   },
   {
+    iconName: "history",
+    iconType: "font-awesome",
+    size: 35,
+    text: "History",
+    component: "History",
+  },
+  {
     iconName: "ios-alarm",
     iconType: "ionicon",
     size: 32,

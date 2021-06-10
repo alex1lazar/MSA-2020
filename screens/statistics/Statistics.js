@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { PieChart } from "react-native-chart-kit";

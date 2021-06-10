@@ -13,6 +13,7 @@ import Firebase from "./config/Firebase";
 
 import AddTask from "./screens/addTask";
 import Focus from "./screens/focus";
+import History from "./screens/history";
 import Loading from "./screens/loading";
 import LoginPage from "./screens/auth/Login";
 import SignupPage from "./screens/auth/Signup";
@@ -70,6 +71,11 @@ const App = () => {
             <Stack.Screen
               name="Statistics"
               component={Statistics}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="History"
+              component={History}
               options={{ headerShown: false }}
             />
             <Stack.Screen
