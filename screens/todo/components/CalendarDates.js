@@ -22,7 +22,7 @@ const createNextDates = () => {
   var dates = [];
   var currentDate = new Date();
 
-  for (var i = 0; i <= 5; i++) {
+  for (var i = 0; i <= 6; i++) {
     if (i > 0) currentDate.setDate(currentDate.getDate() + 1);
 
     const dateDay = currentDate.getDate().toString();

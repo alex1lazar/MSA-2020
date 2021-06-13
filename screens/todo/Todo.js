@@ -68,7 +68,7 @@ const Todo = (props) => {
       )}
 
       <TouchableWithoutFeedback onPress={() => navigation.navigate("AddTask")}>
-        <View onTouch>
+        <View onTouch style={styles.addTaskButton}>
           <Icon
             name="ios-add-circle"
             type="ionicon"
@@ -84,6 +84,10 @@ const Todo = (props) => {
 };
 
 const styles = StyleSheet.create({
+  addTaskButton: {
+    marginTop: 10,
+  },
+
   calendarContainer: {
     flexDirection: "row",
     alignItems: "center",
