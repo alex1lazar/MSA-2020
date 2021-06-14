@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 25,
+    fontSize: 20,
     color: Colors.text,
     marginLeft: 30,
     maxWidth: 190,

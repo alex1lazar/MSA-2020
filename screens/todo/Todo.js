@@ -59,14 +59,6 @@ const Todo = (props) => {
         <CalendarDates />
       </View>
 
-      {renderedTasks.length ? (
-        <View style={styles.tasksContainer}>{renderedTasks}</View>
-      ) : (
-        <Text style={styles.noTasksText}>
-          You don't have any tasks assigned to this day.
-        </Text>
-      )}
-
       <TouchableWithoutFeedback onPress={() => navigation.navigate("AddTask")}>
         <View onTouch style={styles.addTaskButton}>
           <Icon
@@ -78,6 +70,14 @@ const Todo = (props) => {
         </View>
       </TouchableWithoutFeedback>
 
+      {renderedTasks.length ? (
+        <View style={styles.tasksContainer}>{renderedTasks}</View>
+      ) : (
+        <Text style={styles.noTasksText}>
+          You don't have any tasks assigned to this day.
+        </Text>
+      )}
+
       <Navbar navigation={navigation} />
     </View>
   );
@@ -85,7 +85,7 @@ const Todo = (props) => {
 
 const styles = StyleSheet.create({
   addTaskButton: {
-    marginTop: 10,
+    marginBottom: 10,
   },
 
   calendarContainer: {
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: Colors.background,
     minHeight: "100vh",
+    paddingBottom: 60,
   },
 });
 
